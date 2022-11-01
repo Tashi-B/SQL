@@ -1,0 +1,22 @@
+--create a music store database 
+CREATE TABLE music_store (id INTEGER PRIMARY KEY, name TEXT, genre TEXT, price INTEGER, quauntity INTEGER);
+
+--insert data into database 
+INSERT INTO music_store VALUES (1, "T-Pain", "Hip-hop", 20.50, 20);
+INSERT INTO music_store VALUES (2, "Jungle", "Dance", 15.00, 5);
+INSERT INTO music_store VALUES (3, "Michael Jackson", "Pop", 25.99, 45);
+INSERT INTO music_store VALUES (4, "Korn", "Heavy Metal", 19.49, 30);
+INSERT INTO music_store VALUES (5, "Tame Impala", "Dance", 18.83, 28);
+INSERT INTO music_store VALUES (6, "Kendrick Lamar", "Hip-hop", 21.83, 25);
+INSERT INTO music_store VALUES (7, "Usher", "R&B", 17.20, 10);
+INSERT INTO music_store VALUES (8, "Metallica", "Rock", 15.39, 15);
+INSERT INTO music_store VALUES (9, "Black Coffee", "House", 16.34, 19);
+INSERT INTO music_store VALUES (10, "Kid Cudi", "Hip-hop", 20.45, 37);
+
+--select all items and order by price
+SELECT * FROM music_store
+ORDER BY price; 
+
+--select items with quantity greater than or equal to 25
+SELECT * FROM music_store 
+WHERE quauntity >=25;
