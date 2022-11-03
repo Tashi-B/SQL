@@ -121,9 +121,10 @@ INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft
 INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Khris Middleton','Milwaukee Bucks','East','Jan 29, 2018','SF','6''8',222,26,2012,5,'2017-2018',2018,'Texas A&M',0.5,203,100,0);
 INSERT INTO players(Player,Team,Conference,Date,Position,Height,Weight,Age,Draft_Year,Seasons_in_league,Season,Season_short,Predraft_Team,Real_value,Height_CM,Weight_KG,Last_Season) VALUES ('Stephen Curry','Golden State Warriors','West','Jan 29, 2018','G','6''3',190,29,2009,8,'2017-2018',2018,'Davidson',0.5,190,86,0);
 
-
+/what is the average height of players/
 Select round(avg(height)) as "real_height" From players;
 
+/count over, under and on target weight class/
 Select COUNT (*),
 CASE
     WHEN Weight > 270 THEN "over weight"
