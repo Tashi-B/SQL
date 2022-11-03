@@ -133,3 +133,5 @@ CASE
     End as "weight class" From players 
 Group by "weight class";
 
+/using or to select players 30 or 240lbs/
+SELECT player, Age < 30 or Weight = 240 as "average player" FROM players;
