@@ -1,0 +1,64 @@
+#In this SQL, I'm querying a database with multiple tables in it to quantify statistics about customer and order data. 
+
+SELECT *
+FROM BIT_DB.JanSales;
+
+SELECT COUNT(orderID) AS jan_orders
+FROM BIT_DB.JanSales
+WHERE orderid <> ''
+AND orderid <> 'orderID';
+
+-- #1 How many orders were placed in January?
+SELECT count(Product) AS iphone_orders
+FROM BIT_DB.JanSales
+WHERE Product = 'iPhone'
+AND orderid <> ''
+AND orderid <> 'orderID';
+
+-- #2 How many of those orders were for an iPhone? 
+SELECT *
+FROM BIT_DB.FebSales; 
+
+-- #3 Select the customer account numbers for all the orders that were placed in February
+SELECT distinct acctnum
+FROM BIT_DB.customers cust
+
+INNER JOIN BIT_DB.FebSales Feb
+ON cust.order_id=FEB.orderid
+WHERE order_id <> '' 
+AND order_id <> 'Order ID';
+
+-- # 4  Which product was the cheapest one sold in January, and what was the price?
+SELECT Product, MIN(price) AS cheapest_price 
+FROM BIT_DB.JanSales;
+
+SELECT distinct Product, price AS cheapest_price
+FROM BIT_DB.JanSales
+WHERE  price in (SELECT min(price) FROM BIT_DB.JanSales);
+
+-- #5 What is the total revenue for each product sold in January?
+SELECT ROUND( SUM(jansales.price * jansales.Quantity), 2) AS Total_Jan_revenue
+FROM BIT_DB.JanSales as jansales;
+
+SELECT sum(quantity)*price as revenue
+,product
+FROM BIT_DB.JanSales
+GROUP BY product;
+
+-- #6  Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, 
+--how many of each were sold, and what was the total revenue?
+SELECT product, SUM(Quantity), SUM(price * Quantity) AS revenue
+FROM BIT_DB.FebSales
+WHERE location = '548 Lincoln St, Seattle, WA 98101'
+GROUP BY product;
+
+-- #7 How many customers ordered more than 2 products at a time, 
+-- and what was the average amount spent for those customers?
+SELECT COUNT(DISTINCT customer.acctnum) as customer, 
+ROUND(avg(quantity*price), 2) as average_ammount
+FROM BIT_DB.FebSales febsales 
+LEFT JOIN BIT_DB.customers customer
+ON febsales.orderID = customer.order_ID
+WHERE febsales.Quantity > 2
+AND order_ID <> ''
+AND order_ID <> 'Order ID';
