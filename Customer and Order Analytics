@@ -62,3 +62,8 @@ ON febsales.orderID = customer.order_ID
 WHERE febsales.Quantity > 2
 AND order_ID <> ''
 AND order_ID <> 'Order ID';
+
+SELECT product, SUM(Quantity) as items_sold
+FROM BIT_DB.FebSales
+WHERE location LIKE '%Los Angeles%'
+Group By product;
