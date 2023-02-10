@@ -1,0 +1,36 @@
+-- Final SQL Project
+-- Construct questions and query data in chinook database
+
+--#1 What are the total sales for USA in 2010?
+SELECT billingcountry, ROUND(SUM(total), 2) as total_usa_sales2010
+FROM invoices
+WHERE billingcountry = 'USA'
+AND invoicedate like '2010%'
+GROUP BY billingcountry;
+
+--#2 What was the top 10 songs sold in 2013?
+SELECT t.trackid, 
+    t.name,
+    t.composer, 
+    iitems.quantity, 
+    SUM(i.total) as total_sales
+FROM 
+(tracks t JOIN invoice_items iitems 
+ON t.trackid = iitems.trackid)
+INNER JOIN invoices i 
+ON iitems.invoiceid = i.invoiceid
+GROUP BY t.name
+HAVING invoicedate like '2013%'
+ORDER BY total_sales DESC
+ LIMIT 10;
+
+--#3 How many customers did each Sales Support Agent assist?
+SELECT COUNT(c.supportrepid) as customers_helped,
+    e.firstname,
+    e.lastname,
+    e.title
+FROM customers c
+INNER JOIN employees e
+ON c.supportrepid = e.employeeid
+GROUP BY c.supportrepid
+HAVING e.title = 'Sales Support Agent'
